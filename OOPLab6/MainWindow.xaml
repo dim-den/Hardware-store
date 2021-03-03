@@ -1,0 +1,141 @@
+﻿<Window x:Name="window" x:Class="OOPLab6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOPLab6"
+        mc:Ignorable="d"
+        Title="MainWindow"  Height="600" Width="800" MaxWidth="1200" MinHeight="460" MinWidth="280" WindowStartupLocation="CenterScreen"
+        SizeToContent="Width"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" WindowStyle="None"
+        Cursor ="Resources/cursor.cur"
+        Icon="Resources/icon.ico"
+        >
+    <Window.Resources>
+        <StackPanel x:Key="language_item" Orientation="Horizontal" VerticalAlignment="Center">
+            <materialDesign:PackIcon Foreground="Black" Kind="Language" Width="30" Margin="-3 0 5 0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock FontSize="20" FontFamily="GOST type A" FontWeight="Black" VerticalAlignment="Center" Text="{DynamicResource m_Language}"/>
+        </StackPanel>
+        <StackPanel x:Key="theme_item" Orientation="Horizontal" VerticalAlignment="Center">
+            <materialDesign:PackIcon Foreground="Black" Kind="ThemeOutline" Width="30" Margin="-3 0 5 0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock FontSize="20" FontFamily="GOST type A" FontWeight="Black" VerticalAlignment="Center" Text="{DynamicResource m_Theme}"/>
+        </StackPanel>
+    </Window.Resources>
+    <Grid MouseDown="Grid_MouseDown">
+        <DockPanel>
+            <Grid DockPanel.Dock="Left" x:Name="navigation_panel" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition />
+                    <RowDefinition Height="130"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource MenuTheme}" >
+                    <ToggleButton IsChecked="{x:Null}" Style="{DynamicResource MenuThemeToggleButton}"  BorderThickness="0" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                        <materialDesign:PackIcon Kind="Menu" Width="40" Height="40" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="HideStackPanel">                                       
+                                        <DoubleAnimation                                                
+                                                Storyboard.TargetName="navigation_panel"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="160" To="60"
+                                                Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="ShowStackPanel">
+                                        <DoubleAnimation                                                
+                                                Storyboard.TargetName="navigation_panel"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="60" To="160"
+                                                Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1"  Style="{DynamicResource MenuTheme}">
+                    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                        <Grid x:Name="GridCursor" Margin="0 50" Style="{DynamicResource HeaderTheme}" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
+                    </materialDesign:TransitioningContent>
+
+                    <ListView x:Name="ListViewMenu" Margin="0 50" Foreground="White" MinHeight="240" VerticalContentAlignment="Top" 
+                              SelectionChanged="ListViewMenu_SelectionChanged"  Background="{x:Null}" BorderBrush="{x:Null}" 
+                              IsSynchronizedWithCurrentItem="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListViewItem Height="60" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Home}" FontSize="26" FontFamily="GOST type A" Margin="15" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Basket" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Shopping_cart}" TextWrapping="Wrap" FontSize="26" FontFamily="GOST type A" Margin="15" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Background="{x:Null}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TextSearch" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Search}" FontSize="26" FontFamily="GOST type A" Margin="15" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="2" Style="{DynamicResource MenuTheme}">
+                    <DockPanel Margin="10">
+                        <StackPanel Orientation="Vertical">
+                            <Border Style="{DynamicResource HeaderThemeBorder}" CornerRadius="10" BorderThickness="1" Margin="-5 -3 -5 10" DockPanel.Dock="Bottom">
+                                <StackPanel Orientation="Horizontal" Margin="5 " VerticalAlignment="Center" Style="{DynamicResource GrindPrincipalStackPanel}">
+
+                                    <Menu VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" >
+                                        <MenuItem x:Name="menuTheme" Header="{StaticResource theme_item}" />
+                                    </Menu>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{DynamicResource HeaderThemeBorder}" CornerRadius="10" BorderThickness="1" Margin="-5 -3" DockPanel.Dock="Bottom">
+                                <StackPanel Orientation="Horizontal" Margin="5 " VerticalAlignment="Center" Style="{DynamicResource GrindPrincipalStackPanel}">
+                                    <Menu VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" >
+                                        <MenuItem x:Name="menuLanguage" Header="{StaticResource language_item}" />
+                                    </Menu>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                    </DockPanel>
+                </Grid>
+            </Grid>
+
+            <Grid DockPanel.Dock="Right" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Height="auto" Style="{DynamicResource HeaderTheme}" Grid.Row="0">
+                    <TextBlock TextAlignment="Center"  Text="{DynamicResource Header}" Foreground="White" FontSize="32" FontFamily="GOST type A" Margin="5" VerticalAlignment="Center" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Command="{Binding CloseCommand, ElementName=window, Mode=OneWay}" Width="50" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White">
+                            <materialDesign:PackIcon Kind="CloseCircle" Width="30" Height="30"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+
+                <Grid x:Name="GridPrincipal" Style="{DynamicResource GridPrincipalTheme}" MinWidth="200" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
