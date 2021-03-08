@@ -7,8 +7,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
-                <ResourceDictionary x:Name="language_dictionary" Source="Resources/lang.xaml" />
+                <ResourceDictionary Source="Resources/lang.xaml" />
                 <ResourceDictionary Source="Themes/classic.xaml" />
+                <ResourceDictionary Source="Resources/FontsDictionary.xaml" />
+                <ResourceDictionary Source="Resources/ButtonsDictionary.xaml" />
+                <ResourceDictionary Source="Resources/ListViewDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
