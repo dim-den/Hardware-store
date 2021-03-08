@@ -17,7 +17,6 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
 using System.Collections.ObjectModel;
-using OOPLab6.Commands;
 
 namespace OOPLab6
 {
@@ -26,58 +25,31 @@ namespace OOPLab6
     /// </summary>
     public partial class SearchUserControl : UserControl
     {
-        public ObservableCollection<Device> devices = new ObservableCollection<Device>();
-        public List<Device> deletedDevices = new List<Device>();
+        ObservableCollection<Device> devices = new ObservableCollection<Device>();
+        List<Device> deletedDevices = new List<Device>();
 
-        #region Commands
-
-        public static UndoCommandManager undoCommandManager = new UndoCommandManager();
-
-        private UndoCommand addCommand;
-        private UndoCommand deleteCommand;
+        private Command addCommand;
         private Command saveCommand;
         private Command updateCommand;
+        private Command deleteCommand;
         private Command applyCommand;
-        private Command undoCommand;
-        private Command redoCommand;
         public ICommand AddCommand
         {
             get
             {
                 return addCommand ??
-                      (addCommand = new UndoCommand(
-                      obj =>
+                  (addCommand = new Command(obj =>
+                  {
+                      AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
+                      addDeviceWindow.ShowDialog();
+                      using (ShopDB db = new ShopDB())
                       {
-                          AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
-                          addDeviceWindow.ShowDialog();
-                          using (ShopDB db = new ShopDB())
-                          {
-                              var res = new ObservableCollection<Device>(db.GetDevices());
-
-                              if (devices.Count != res.Count)
-                              {
-                                  devices = res;
-                                  deviceGrid.ItemsSource = devices;
-                                  return devices.Last();
-                              }
-                          }
-                          return null;
-                      },
-                      obj =>
-                      {
-                          Device selected = obj as Device;
-                          if (selected != null)
-                          {
-                              notifier.ShowInformation($"Был удален товар {selected.Name}");
-                              devices.Remove(selected);
-                              deletedDevices.Add(selected);
-                              SaveCommand.Execute(null);
-                          }
-                      }));
+                          devices = new ObservableCollection<Device>(db.GetDevices());
+                          deviceGrid.ItemsSource = devices;
+                      }
+                  }));
             }
-
         }
-
         public ICommand SaveCommand
         {
             get
@@ -132,28 +104,16 @@ namespace OOPLab6
             get
             {
                 return deleteCommand ??
-                  (deleteCommand = new UndoCommand(obj =>
+                  (deleteCommand = new Command(obj =>
                   {
-                      Device selected = obj as Device ?? deviceGrid.SelectedItem as Device;
+                      Device selected = deviceGrid.SelectedItem as Device;
                       if (selected != null)
                       {
                           notifier.ShowInformation($"Был удален товар {selected.Name}");
                           devices.Remove(selected);
                           deletedDevices.Add(selected);
                       }
-                      return selected;
-                  },
-                  obj =>
-                  {
-                      Device selected = obj as Device;
-                      if (selected != null)
-                      {
-                          notifier.ShowInformation($"Был добавлен товар {selected.Name}");
-                          devices.Add(selected);
-                          deletedDevices.Remove(selected);
-                      }
-                  }
-                ));
+                  }));
             }
         }
         public ICommand ApplyCommand
@@ -186,36 +146,11 @@ namespace OOPLab6
             }
         }
 
-        public ICommand UndoCommand
-        {
-            get
-            {
-                return undoCommand ??
-                  (undoCommand = new Command(obj =>
-                  {
-                      undoCommandManager.Undo();
-                  }));
-            }
-        }
-
-        public ICommand RedoCommand
-        {
-            get
-            {
-                return redoCommand ??
-                  (redoCommand = new Command(obj =>
-                  {
-                      undoCommandManager.Redo();
-                  }));
-            }
-        }
-        #endregion
-
         private readonly Notifier notifier;
         public SearchUserControl()
         {
             InitializeComponent();
-                       
+
             using (ShopDB db = new ShopDB())
             {
                 devices = new ObservableCollection<Device>(db.GetDevices());
@@ -237,7 +172,7 @@ namespace OOPLab6
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
 
-        }
+        }  
 
 
     }

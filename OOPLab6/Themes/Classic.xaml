@@ -31,43 +31,4 @@
     <Style x:Key="MenuThemeToggleButton" TargetType="ToggleButton">
         <Setter Property="Background" Value="#5b5b5b"/>
     </Style>
-    <ControlTemplate x:Key="BuyButtonTemplate" TargetType="Button" >
-        <Border Name="btn" CornerRadius="10" Style="{DynamicResource HeaderThemeBorder}" Margin="10">
-            <ContentControl Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" Foreground="White" FontFamily="GOST type A" Content="{DynamicResource sc_Buy}" />
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="FontWeight" Value="Bold" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-                <Setter TargetName="btn" Property="Background" Value="#c7c6ad" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <ControlTemplate x:Key="AddButtonTemplate" TargetType="Button" >
-        <Border Name="btn" CornerRadius="10" Style="{DynamicResource HeaderThemeBorder}" Margin="10">
-            <ContentControl Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" FontSize="24" FontFamily="GOST type A" Content="{DynamicResource add_Add}" />
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="FontWeight" Value="Bold" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-                <Setter TargetName="btn" Property="Background" Value="#c7c6ad" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <ControlTemplate x:Key="ApplyButtonTemplate" TargetType="Button" >
-        <Border Name="btn" CornerRadius="10" Style="{DynamicResource HeaderThemeBorder}" Margin="5">
-            <ContentControl Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" FontFamily="GOST type A" Content="{DynamicResource srch_Apply}" />
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="FontWeight" Value="Bold" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-                <Setter TargetName="btn" Property="Background" Value="#c7c6ad" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
 </ResourceDictionary>

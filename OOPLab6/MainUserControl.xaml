@@ -10,22 +10,6 @@
     <Grid Margin="10" Style="{DynamicResource GridPrincipalTheme}">
         <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.5}">
             <ListBox x:Name="deviceList" Style="{DynamicResource GridPrincipalThemeListBox}" MouseDoubleClick="ListBoxItem_MouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Disabled"   BorderThickness="0" >
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Style.Triggers>
-                            <MultiTrigger >
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                    <Condition Property="IsMouseOver" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter Property="Foreground" Value="DarkBlue" />
-                                    <Setter Property="FontWeight" Value="SemiBold" />
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Style="{DynamicResource HeaderThemeBorder}" CornerRadius="6" BorderThickness="2" DockPanel.Dock="Top">
@@ -34,33 +18,33 @@
                                 <StackPanel Orientation="Vertical" >
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Name}"/>
-                                        <TextBlock Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Name}" />
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Description}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Description}" TextWrapping="Wrap"/>
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Description}" TextWrapping="Wrap" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Producer}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Producer}"/>
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Producer}" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Country}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Country}"/>
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Country}" HorizontalAlignment="Left" />
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Quantity}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Quantity}" />
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Quantity}" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Purchased}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Purhased}"/>
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Purhased}" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Price}"/>
-                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Price}"/>
+                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Price}" HorizontalAlignment="Left" />
                                         <TextBlock Text="$"/>
                                     </StackPanel>
                                 </StackPanel>
