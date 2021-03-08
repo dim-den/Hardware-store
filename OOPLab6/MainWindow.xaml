@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOPLab6"
         mc:Ignorable="d"
-        Title="MainWindow"  Height="600" Width="800" MaxWidth="1200" MinHeight="460" MinWidth="280" WindowStartupLocation="CenterScreen"
-        SizeToContent="Width"
+        Title="MainWindow"  Height="600" Width="1000" MaxWidth="1200" MinHeight="460" MinWidth="280" WindowStartupLocation="CenterScreen"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" WindowStyle="None"
         Cursor ="Resources/cursor.cur"
         Icon="Resources/icon.ico"
@@ -36,7 +35,7 @@
                         <ToggleButton.Triggers>
                             <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                 <BeginStoryboard>
-                                    <Storyboard x:Name="HideStackPanel">                                       
+                                    <Storyboard x:Name="HideStackPanel">
                                         <DoubleAnimation                                                
                                                 Storyboard.TargetName="navigation_panel"
                                                 Storyboard.TargetProperty="Width"
@@ -69,25 +68,23 @@
                         <Grid x:Name="GridCursor" Margin="0 50" Style="{DynamicResource HeaderTheme}" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
                     </materialDesign:TransitioningContent>
 
-                    <ListView x:Name="ListViewMenu" Margin="0 50" Foreground="White" MinHeight="240" VerticalContentAlignment="Top" 
-                              SelectionChanged="ListViewMenu_SelectionChanged"  Background="{x:Null}" BorderBrush="{x:Null}" 
-                              IsSynchronizedWithCurrentItem="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView x:Name="ListViewMenu" SelectionChanged="ListViewMenu_SelectionChanged"  Style="{StaticResource MainMenuListView}">
                         <ListViewItem Height="60" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Home}" FontSize="26" FontFamily="GOST type A" Margin="15" TextWrapping="Wrap" />
+                                <TextBlock Text="{DynamicResource m_Home}" Style="{StaticResource TextBlockMainMenu}" />
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem Height="60" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Basket" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Shopping_cart}" TextWrapping="Wrap" FontSize="26" FontFamily="GOST type A" Margin="15" />
+                                <TextBlock Text="{DynamicResource m_Shopping_cart}" Style="{StaticResource TextBlockMainMenu}" />
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem Height="60" Background="{x:Null}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TextSearch" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource m_Search}" FontSize="26" FontFamily="GOST type A" Margin="15" TextWrapping="Wrap" />
+                                <TextBlock Text="{DynamicResource m_Search}" Style="{StaticResource TextBlockMainMenu}" />
                             </StackPanel>
                         </ListViewItem>
                     </ListView>

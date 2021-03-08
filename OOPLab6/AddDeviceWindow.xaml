@@ -8,15 +8,6 @@
         mc:Ignorable="d"
         Title="Добавление записи" Height="350" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterOwner"
         Style="{DynamicResource GridPrincipalWindow}">
-    <Window.Resources>
-        <Style x:Key="SmallTextBlock">
-            <Setter Property="TextBlock.FontFamily" Value="GOST type A" />
-            <Setter Property="TextBlock.FontSize" Value="18" />
-            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-            <Setter Property="TextBlock.Margin" Value="10 10 10 0" />
-            <Setter Property="TextBlock.Foreground" Value="Black" />
-        </Style>
-    </Window.Resources>
     <Grid MouseDown="Grid_MousDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,7 +20,7 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.12*"/>
         </Grid.RowDefinitions>
         <Grid Style="{DynamicResource HeaderTheme}" Grid.Row="0" Grid.ColumnSpan="4">
             <TextBlock Text="{DynamicResource add_Adding_product}" TextAlignment="Center"  Foreground="White" FontSize="24" FontFamily="GOST type A" Margin="5" VerticalAlignment="Center" FontWeight="Bold" />
@@ -45,54 +36,54 @@
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{DynamicResource add_Product_name}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Name"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock Text="{DynamicResource add_Product_name}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Name"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Image_name}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_ImagePath"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock  Text="{DynamicResource add_Image_name}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_ImagePath"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="2">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Description}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Description"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock  Text="{DynamicResource add_Description}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Description"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="3">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Producer}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Producer"  Style="{StaticResource SmallTextBlock}" />
+                <TextBlock  Text="{DynamicResource add_Producer}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Producer"  Style="{StaticResource TextBlockAddWindow18}" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="0">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Country}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Country"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock  Text="{DynamicResource add_Country}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Country"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Quantity}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Quantity"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock  Text="{DynamicResource add_Quantity}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Quantity"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="2">
             <StackPanel Orientation="Vertical">
-                <TextBlock  Text="{DynamicResource add_Purchased}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Purchased"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock  Text="{DynamicResource add_Purchased}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Purchased"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="3">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{DynamicResource add_Price}" Style="{StaticResource SmallTextBlock}"/>
-                <TextBox x:Name="TextBox_Price"  Style="{StaticResource SmallTextBlock}"/>
+                <TextBlock Text="{DynamicResource add_Price}" Style="{StaticResource TextBlockAddWindow18}"/>
+                <TextBox x:Name="TextBox_Price"  Style="{StaticResource TextBlockAddWindow18}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4" Grid.ColumnSpan ="4">
-            <Button  Command="{Binding AddCommand,ElementName=window, Mode=OneWay}" Style="{DynamicResource HeaderThemeButton}" BorderThickness="0"  Foreground="White" Content="{DynamicResource add_Add}" Margin="10" FontSize="24" FontFamily="GOST type A" FontWeight="Black" />
+            <Button  Command="{Binding AddCommand,ElementName=window, Mode=OneWay}" Style="{DynamicResource HeaderThemeButton}" Template="{DynamicResource AddButtonTemplate}" />
         </Grid>
     </Grid>
 </Window>

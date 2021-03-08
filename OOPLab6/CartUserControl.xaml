@@ -6,47 +6,50 @@
              xmlns:local="clr-namespace:OOPLab6"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"            
              >
+    <UserControl.Resources>
+    
+    </UserControl.Resources>
     <Grid MinWidth="400">
         <StackPanel Orientation="Vertical">
             <TextBlock Text="{DynamicResource sc_Your_shopping_cart}" FontFamily="GOST type A" Foreground="White" FontSize ="36" Margin="10" HorizontalAlignment="Left" />
             <ListBox x:Name="deviceList" Style="{DynamicResource GridPrincipalThemeListBox}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  MaxHeight="350" BorderThickness="0" Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border CornerRadius="6" BorderBrush="Gray" Background="LightGray" BorderThickness="2" DockPanel.Dock="Top">
+                        <Border Style="{DynamicResource HeaderThemeBorder}" CornerRadius="6" BorderThickness="2" DockPanel.Dock="Top">
                             <StackPanel Margin="5" Background="White" Orientation="Horizontal">
                                 <Image Width="50" Height="50" Margin="5" Source="{Binding Path=ImagePath}" />
                                 <StackPanel Orientation="Vertical" Margin="10">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock  Text="{DynamicResource m_Name}" />
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Name}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Description}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Description}" TextWrapping="Wrap" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Description}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Producer}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Producer}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Producer}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Country}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Country}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Country}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Quantity}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Quantity}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Quantity}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Purchased}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Purhased}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Purhased}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{DynamicResource m_Price}"/>
-                                        <TextBlock FontFamily="GOST type A" FontSize="16" Text="{Binding Path=Price}" HorizontalAlignment="Left" />
+                                        <TextBlock  Style="{StaticResource TextBlockFont16}" Text="{Binding Path=Price}"/>
                                         <TextBlock Text="$"/>
                                     </StackPanel>
                                 </StackPanel>
@@ -60,21 +63,22 @@
                         <WrapPanel />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+
             </ListBox>
             <Rectangle Height="7" Style="{DynamicResource MenuThemeRectangle}" Width="auto" Margin="10" RadiusX="5" RadiusY="5"></Rectangle>
             <Canvas Margin="10 5 10 10">
                 <StackPanel Canvas.Left="0" Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource sc_Number_of_items}" FontFamily="GOST type A" FontSize="16" Foreground="White" />
-                    <TextBlock FontFamily="GOST type A" FontSize="16" x:Name="Text_ItemCount" TextAlignment="Left" Foreground="White"/>
+                    <TextBlock Text="{DynamicResource sc_Number_of_items}"  Style="{StaticResource TextBlockFont16}" Foreground="White" />
+                    <TextBlock  x:Name="Text_ItemCount" TextAlignment="Left" Foreground="White" />
                 </StackPanel>
                 <StackPanel Canvas.Right="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock  Text="{DynamicResource sc_Total price}" FontFamily="GOST type A" FontSize="16" Foreground="White" />
-                    <TextBlock FontFamily="GOST type A" FontSize="16" x:Name="Text_OverallPrice" Text="0" TextAlignment="Right" Foreground="White"/>
+                    <TextBlock  Text="{DynamicResource sc_Total price}"  Style="{StaticResource TextBlockFont16}" Foreground="White" />
+                    <TextBlock  Style="{StaticResource TextBlockFont16}" x:Name="Text_OverallPrice" Text="0" TextAlignment="Right" Foreground="White"/>
                 </StackPanel>
             </Canvas>
 
         </StackPanel>
-        <Button Command="{Binding BuyCommand,ElementName=userControl, Mode=OneWay}" BorderThickness="0" Content="{DynamicResource sc_Buy}" Style="{DynamicResource HeaderThemeButton}" Foreground="White" FontFamily="GOST type A" FontSize="32"  VerticalAlignment="Bottom" Margin="10" />
-              
+        <Button Command="{Binding BuyCommand,ElementName=userControl, Mode=OneWay}" Template="{DynamicResource BuyButtonTemplate}" VerticalAlignment="Bottom" />
+
     </Grid>
 </UserControl>
