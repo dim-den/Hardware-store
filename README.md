@@ -1,7 +1,7 @@
 # Hardware-store
 Simple WPF app shopping store working with MSSQL DB. 
 
-2 languages(eng, ru) and 3 themes(classic, darkblue, bright) available. Realized Command pattern, 1 custom control (NumericUpDown)
+2 languages(eng, ru) and 3 themes(classic, darkblue, bright) available. Realized Command pattern, 1 custom control (NumericUpDown). User input based on dependency properties.
 
 To work with project you need DB and packets from Nuget: materialdesign (themes, colors), toastnotifications
 
