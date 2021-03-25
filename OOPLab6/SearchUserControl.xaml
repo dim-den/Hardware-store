@@ -21,7 +21,7 @@
 
 
         <Grid Grid.Column="0" Grid.Row="0">
-            <DataGrid MaxColumnWidth="200" CanUserAddRows="false" HorizontalAlignment="Left" x:Name="deviceGrid" VerticalAlignment="Top" Margin="10">
+            <DataGrid MaxColumnWidth="200" CanUserAddRows="false" CanUserDeleteRows="True" ItemsSource="{Binding Devices, Mode=TwoWay, ElementName=userControl}" HorizontalAlignment="Left" x:Name="deviceGrid" VerticalAlignment="Top" Margin="10">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Delete" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
@@ -69,11 +69,11 @@
                             <StackPanel Orientation="Vertical" Margin="5" Width="200">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Text="{DynamicResource srch_Producer}"/>
-                                    <TextBox x:Name="TextBox_Producer"></TextBox>
+                                    <TextBox Text="{Binding Producer, Mode=TwoWay, ElementName=userControl}"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Text="{DynamicResource srch_Country}" />
-                                    <TextBox x:Name="TextBox_Country"></TextBox>
+                                    <TextBox Text="{Binding Country, Mode=TwoWay, ElementName=userControl}"></TextBox>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -102,7 +102,7 @@
                         <StackPanel Orientation="Vertical" Margin="5">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{DynamicResource srch_Product_name}" />
-                                <TextBox x:Name="TextBox_Name"></TextBox>
+                                <TextBox Text="{Binding ProductName, Mode=TwoWay, ElementName=userControl}"></TextBox>
                             </StackPanel>
                             <CheckBox Margin="5" Content="{DynamicResource srch_Available in stock}" x:Name="CheckBox_IsAvailvable"/>
                             <Button Style="{DynamicResource HeaderThemeButton}" Template="{DynamicResource ApplyButtonTemplate}" Command="{Binding ApplyCommand, ElementName=userControl}" />

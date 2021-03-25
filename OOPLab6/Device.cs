@@ -32,6 +32,26 @@ namespace OOPLab6
             Price = price;
         }
 
+        public bool ProducerContains(string producer)
+        {
+            if (producer == null || producer == "")
+                return true;
+            return Producer.ToLower().Contains(producer.ToLower());
+        }
+        public bool CountryContains(string country)
+        {
+            if (country == null || country == "")
+                return true;
+            return Country.ToLower().Contains(country.ToLower());
+
+        }
+        public bool NameContains(string name)
+        {
+            if (name == null || name == "")
+                return true;
+            return Name.ToLower().Contains(name.ToLower());
+
+        }
         public bool HaveEmptyFields()
         {
             return  Name == null        || Name == ""        || 
@@ -41,7 +61,6 @@ namespace OOPLab6
                     Country == null     || Country == ""     || 
                     Price <= 0;
         }
-
         public override bool Equals(object obj)
         {
             return obj is Device device &&
@@ -69,6 +88,12 @@ namespace OOPLab6
             hashCode = hashCode * -1521134295 + Purhased.GetHashCode();
             hashCode = hashCode * -1521134295 + Price.GetHashCode();
             return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return $"ID:{ID}\nName:{Name}\nImagePath:{ImagePath}\nDescription:{Description}\n" +
+                $"Producer:{Producer}\nCountry:{Country}\nQuantity:{Quantity}\nPurchased:{Purhased}\nPrice:{Price}";
         }
     }
 }

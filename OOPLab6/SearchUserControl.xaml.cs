@@ -26,7 +26,6 @@ namespace OOPLab6
     /// </summary>
     public partial class SearchUserControl : UserControl
     {
-        public ObservableCollection<Device> devices = new ObservableCollection<Device>();
         public List<Device> deletedDevices = new List<Device>();
 
         #region Commands
@@ -52,13 +51,12 @@ namespace OOPLab6
                           addDeviceWindow.ShowDialog();
                           using (ShopDB db = new ShopDB())
                           {
-                              var res = new ObservableCollection<Device>(db.GetDevices());
+                              var res = db.GetDevices();
 
-                              if (devices.Count != res.Count)
+                              if (Devices.Count != res.Count)
                               {
-                                  devices = res;
-                                  deviceGrid.ItemsSource = devices;
-                                  return devices.Last();
+                                  Devices = new ObservableCollection<Device>(res);
+                                  return Devices.Last();
                               }
                           }
                           return null;
@@ -69,7 +67,7 @@ namespace OOPLab6
                           if (selected != null)
                           {
                               notifier.ShowInformation($"Был удален товар {selected.Name}");
-                              devices.Remove(selected);
+                              Devices.Remove(selected);
                               deletedDevices.Add(selected);
                               SaveCommand.Execute(null);
                           }
@@ -92,13 +90,13 @@ namespace OOPLab6
                           deletedDevices.ForEach(device => db.DeleteDevice(device));
 
                           var old = db.GetDevices();
-                          if (old.Count == devices.Count)
+                          if (old.Count == Devices.Count)
                           {
-                              for (int i = 0; i < devices.Count; i++)
+                              for (int i = 0; i < Devices.Count; i++)
                               {
-                                  if (!old[i].Equals(devices[i]))
+                                  if (!old[i].Equals(Devices[i]))
                                   {
-                                      db.UpdateDevice(devices[i].ID, devices[i]);
+                                      db.UpdateDevice(Devices[i].ID, Devices[i]);
                                       updated++;
                                   }
                               }
@@ -119,8 +117,7 @@ namespace OOPLab6
                   {
                       using (ShopDB db = new ShopDB())
                       {
-                          devices = new ObservableCollection<Device>(db.GetDevices());
-                          deviceGrid.ItemsSource = devices;
+                          Devices = new ObservableCollection<Device>(db.GetDevices());
                       }
                       deletedDevices.Clear();
                       notifier.ShowInformation("Таблица обновлена");
@@ -138,7 +135,9 @@ namespace OOPLab6
                       if (selected != null)
                       {
                           notifier.ShowInformation($"Был удален товар {selected.Name}");
-                          devices.Remove(selected);
+                          MessageBox.Show(selected.ToString());
+                          MessageBox.Show(Devices.Remove(selected).ToString());
+                     
                           deletedDevices.Add(selected);
                       }
                       return selected;
@@ -149,7 +148,7 @@ namespace OOPLab6
                       if (selected != null)
                       {
                           notifier.ShowInformation($"Был добавлен товар {selected.Name}");
-                          devices.Add(selected);
+                          Devices.Add(selected);
                           deletedDevices.Remove(selected);
                       }
                   }
@@ -163,15 +162,12 @@ namespace OOPLab6
                 return applyCommand ??
                   (applyCommand = new Command(obj =>
                   {
-                      List<Device> result = new List<Device>(devices);
-                      if (TextBox_Producer.Text != null && TextBox_Producer.Text != "")
-                          result = new List<Device>(result.Where(d => d.Producer.Contains(TextBox_Producer.Text)));
+                      using (ShopDB db = new ShopDB())
+                      {
+                          Devices = new ObservableCollection<Device>(db.GetDevices());
+                      }
 
-                      if (TextBox_Country.Text != null && TextBox_Country.Text != "")
-                          result = new List<Device>(result.Where(d => d.Country.Contains(TextBox_Country.Text)));
-
-                      if (TextBox_Name.Text != null && TextBox_Name.Text != "")
-                          result = new List<Device>(result.Where(d => d.Name.Contains(TextBox_Name.Text)));
+                      var result = new List<Device>(Devices.Where(d => d.ProducerContains(Producer) && d.CountryContains(Country) && d.NameContains(ProductName)));
 
                       if (CheckBox_IsAvailvable.IsChecked == true)
                           result = new List<Device>(result.Where(d => d.Quantity > 0));
@@ -181,7 +177,8 @@ namespace OOPLab6
                           if (DownPrice.Value > UpPrice.Value) UpPrice.Value = DownPrice.Value;
                           result = new List<Device>(result.Where(d => d.Price <= UpPrice.Value && d.Price >= DownPrice.Value));
                       }
-                      deviceGrid.ItemsSource = result;
+
+                      Devices = new ObservableCollection<Device>(result);
                   }));
             }
         }
@@ -211,15 +208,78 @@ namespace OOPLab6
         }
         #endregion
 
+        #region DependecyProperties
+
+        public static readonly DependencyProperty FormProducerProperty = DependencyProperty.Register(
+        "Producer",
+        typeof(string),
+        typeof(SearchUserControl),
+        new PropertyMetadata("") { CoerceValueCallback = new CoerceValueCallback(CoerceStringInput) },
+        new ValidateValueCallback(IsValidStringInput)
+        );
+
+        public static readonly DependencyProperty FormCountryProperty = DependencyProperty.Register(
+        "Country",
+        typeof(string),
+        typeof(SearchUserControl),
+        new PropertyMetadata("") { CoerceValueCallback = new CoerceValueCallback(CoerceStringInput) },
+        new ValidateValueCallback(IsValidStringInput)
+        );
+
+        public static readonly DependencyProperty FormProductNameProperty = DependencyProperty.Register(
+        "ProductName",
+        typeof(string),
+        typeof(SearchUserControl),
+        new PropertyMetadata("") { CoerceValueCallback = new CoerceValueCallback(CoerceStringInput) },
+        new ValidateValueCallback(IsValidStringInput)
+        );
+
+        public static readonly DependencyProperty DevicesProperty = DependencyProperty.Register("Devices", typeof(ObservableCollection<Device>), 
+            typeof(SearchUserControl), new PropertyMetadata());
+        public ObservableCollection<Device> Devices
+        {
+            get { return (ObservableCollection<Device>)GetValue(DevicesProperty); }
+            set { SetValue(DevicesProperty, value); }
+        }
+        public string Producer
+        {
+            get { return (string)GetValue(FormProducerProperty); }
+            set { SetValue(FormProducerProperty, value); }
+        }
+        public string Country
+        {
+            get { return (string)GetValue(FormCountryProperty); }
+            set { SetValue(FormCountryProperty, value); }
+        }
+        public string ProductName
+        {
+            get { return (string)GetValue(FormProductNameProperty); }
+            set { SetValue(FormProductNameProperty, value); }
+        }
+        public static bool IsValidStringInput(object value)
+        {
+            return ((string)value).All(c => Char.IsLetter(c));
+        }
+
+        private static object CoerceStringInput(DependencyObject d, object value)
+        {
+            var inp = (string)value;
+            if (inp.Length > 8)
+                inp = inp.Substring(0, 8);
+            return inp;
+        }
+
+        #endregion
+
         private readonly Notifier notifier;
+
         public SearchUserControl()
         {
             InitializeComponent();
-                       
+
             using (ShopDB db = new ShopDB())
             {
-                devices = new ObservableCollection<Device>(db.GetDevices());
-                deviceGrid.ItemsSource = devices;
+                Devices = new ObservableCollection<Device>(db.GetDevices());
             }
 
             notifier = new Notifier(cfg =>

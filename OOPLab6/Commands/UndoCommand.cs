@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace OOPLab6.Commands
 {
@@ -11,7 +12,11 @@ namespace OOPLab6.Commands
         private readonly Func<object, Device> execute;
         private readonly Action<object> unexecute;
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public UndoCommand(Func<object, Device> execute, Action<object> unexecute)
         {
@@ -27,7 +32,7 @@ namespace OOPLab6.Commands
         public void Execute(object parameter)
         {
            var res = this.execute(parameter);
-            SearchUserControl.undoCommandManager.Add(this, res);
+           SearchUserControl.undoCommandManager.Add(this, res);
         }
 
         public void Unexecute(object parameter)

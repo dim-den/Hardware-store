@@ -127,8 +127,6 @@
                         </Button>
                     </StackPanel>
                 </Grid>
-
-
                 <Grid x:Name="GridPrincipal" Style="{DynamicResource GridPrincipalTheme}" MinWidth="200" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
 
                 </Grid>
